@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { secToTime } from "../../utils/utils";
 
 export default function Pomodoro() {
   const [stage, setStage] = useState(0);
@@ -39,7 +40,7 @@ export default function Pomodoro() {
           {step.label}
         </button>
       ))}
-      <div className="mt-4 text-8xl">{stages[stage].duration}</div>
+      <div className="mt-4 text-8xl">{secToTime(stages[stage].duration)}</div>
       <button className="mx-4 mt-4">Start</button>
       <button className="mx-4 mt-4">Pause</button>
       <button className="mx-4 mt-4">Reset</button>
