@@ -1,11 +1,17 @@
 import Navbar from "@/components/navbar";
 import "./globals.css";
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Inter, Roboto } from "next/font/google";
 
 const inter = Inter({
   subsets: ["latin"],
   variable: "--font-inter",
+});
+
+const robotoMono = Roboto({
+  subsets: ["latin"],
+  variable: "--font-roboto-mono",
+  weight: ["400", "700"],
 });
 
 export const metadata: Metadata = {
@@ -19,8 +25,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${inter.variable}`}>
-      <body className="mx-auto min-h-screen max-w-4xl">
+    <html lang="en" className={`${inter.variable} ${robotoMono.variable}`}>
+      <body className="mx-auto min-h-screen max-w-4xl text-slate-800">
         <Navbar />
         {children}
       </body>

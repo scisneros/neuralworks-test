@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Timer from "./timer";
 import { Stage } from "./types";
 import PomodoroSettings from "./settings";
+import clsx from "clsx";
 
 // To modify the default stages, change the values in this array.
 // Stages can be added/removed without requiring further modifications.
@@ -44,23 +45,29 @@ export default function Pomodoro() {
 
   return (
     <div className="text-center">
-      <h1>Pomodoro</h1>
+      <h1 className="mt-8 mb-2">Pomodoro Timer</h1>
+      <PomodoroSettings stages={stages} setStages={setStages} />
       {stages.map((thisStage) => (
         <button
-          className="mx-4 mt-4"
+          className={clsx(
+            "mx-4 mt-8 mb-4 rounded-2xl px-4 py-3 text-xl transition-colors",
+            thisStage.name === currentStage.name && [
+              "bg-primary",
+              "text-white",
+            ],
+          )}
           key={thisStage.name}
           onClick={() => setCurrentStage(thisStage)}
         >
           {thisStage.label}
         </button>
       ))}
-      <div className="mt-4 min-h-[2rem] text-2xl">{message}</div>
       <Timer
         startingTime={currentStage.duration}
         onFinish={handleTimerFinish}
         onReset={handleTimerReset}
       />
-      <PomodoroSettings stages={stages} setStages={setStages} />
+      <div className="mt-4 min-h-[2rem] text-2xl">{message}</div>
     </div>
   );
 }

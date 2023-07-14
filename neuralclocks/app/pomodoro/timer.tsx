@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import clsx from "clsx";
 import TimerProgress from "./progress";
+import { HiArrowPath, HiPause, HiPlay } from "react-icons/hi2";
 
 /**
  * Timer component. Displays a timer that counts down from a given time
@@ -62,14 +63,14 @@ const Timer = ({
     handleReset();
   }, [startingTime]);
 
-  const handleStart = () => {
-    setIsRunning(true);
-    onStart?.();
-  };
-
-  const handlePause = () => {
-    setIsRunning(false);
-    onPause?.();
+  const handlePlayPause = () => {
+    if (!isRunning) {
+      setIsRunning(true);
+      onStart?.();
+    } else {
+      setIsRunning(false);
+      onPause?.();
+    }
   };
 
   const handleReset = () => {
@@ -80,20 +81,25 @@ const Timer = ({
 
   return (
     <div className="text-center">
-      <TimerProgress time={time} startingTime={startingTime} />
+      <TimerProgress
+        time={time}
+        startingTime={startingTime}
+        isRunning={isRunning}
+      />
       <button
-        className={clsx("mx-4 mt-4", { underline: isRunning })}
-        onClick={() => handleStart()}
+        className={clsx(
+          "mx-auto mt-6 block rounded-full bg-primary px-6 py-2 text-3xl text-white",
+          { underline: isRunning },
+        )}
+        onClick={() => handlePlayPause()}
       >
-        Start
+        {isRunning ? <HiPause /> : <HiPlay />}
       </button>
       <button
-        className={clsx("mx-4 mt-4", { underline: !isRunning })}
-        onClick={() => handlePause()}
+        className="mx-auto mt-4 block rounded-full bg-gray-200 px-4 py-1 align-middle transition-colors hover:bg-gray-300"
+        onClick={() => handleReset()}
       >
-        Pause
-      </button>
-      <button className="mx-4 mt-4" onClick={() => handleReset()}>
+        <HiArrowPath className="mb-1 mr-2 inline-block" />
         Reset
       </button>
     </div>

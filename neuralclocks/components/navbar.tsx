@@ -56,7 +56,7 @@ const Navbar = () => {
                           key={item.name}
                           href={item.href}
                           className={clsx(
-                            "rounded-md px-3 py-2 text-sm font-medium text-gray-900",
+                            "rounded-md px-3 py-2 text-sm font-medium",
                             "underline decoration-2 underline-offset-8",
                             "transition-[text-decoration-color]",
                             item.current
@@ -138,7 +138,7 @@ const Navbar = () => {
                     item.current
                       ? "font-bold underline decoration-primary decoration-2 underline-offset-4"
                       : "hover:underline hover:decoration-primary hover:decoration-2 hover:underline-offset-8",
-                    "block rounded-md px-3 py-2 text-base font-medium text-gray-900",
+                    "block rounded-md px-3 py-2 text-base font-medium",
                   )}
                   aria-current={item.current ? "page" : undefined}
                 >

@@ -10,9 +10,11 @@ import clsx from "clsx";
 const TimerProgress = ({
   time,
   startingTime,
+  isRunning,
 }: {
   time: number;
   startingTime: number;
+  isRunning: boolean;
 }) => {
   // Customizable.
   const stroke = 8;
@@ -20,16 +22,20 @@ const TimerProgress = ({
   // To control the size of the component, use its root's CSS width.
   const radius = 50 - stroke / 2;
 
+  // Check if the timer is at its starting time and not running.
+  const isStandby = !isRunning && time === startingTime;
+
+  // Timer progress. Goes from 1 to 0.
   const progress = time / startingTime;
 
   return (
-    <div className="relative mx-auto flex w-96 items-center justify-center">
+    <div className="relative mx-auto mb-4 flex w-11/12 items-center justify-center sm:w-80">
       <svg viewBox="0 0 100 100" className="progress-ring">
         {/* Background circle */}
         <circle
           className={clsx(
             "fill-transparent",
-            "stroke-red-200",
+            "stroke-primary-100",
             "[stroke-linecap:round]",
             "transition-all duration-300",
           )}
@@ -44,12 +50,11 @@ const TimerProgress = ({
         <circle
           className={clsx(
             "fill-transparent",
-            "stroke-red-500",
+            "stroke-primary",
             "[stroke-linecap:round]",
             "-rotate-90",
             "origin-center",
             "transition-all duration-300",
-            { "opacity-0": progress === 1 },
           )}
           r={radius}
           cx={50}
@@ -57,12 +62,15 @@ const TimerProgress = ({
           style={{
             strokeWidth: stroke,
             strokeDasharray: `${2 * Math.PI * radius} ${2 * Math.PI * radius}`,
-            strokeDashoffset: 2 * Math.PI * radius * progress,
+            strokeDashoffset:
+              2 * Math.PI * radius * progress * (isStandby ? 0 : 1),
           }}
         />
       </svg>
       {/* Digital clock */}
-      <div className="absolute mb-2 text-8xl">{secToTime(time)}</div>
+      <div className="absolute mb-2 font-mono text-7xl font-bold text-primary-dark">
+        {secToTime(time)}
+      </div>
     </div>
   );
 };

@@ -9,11 +9,14 @@ module.exports = {
     extend: {
       fontFamily: {
         sans: ['var(--font-inter)'],
+        mono: ['var(--font-roboto-mono)'],
       },
       colors: {
         primary: {
           50: "#fef2f8",
+          100: "#ffe3f1",
           DEFAULT: "#ee0171",
+          "dark": "#840440",
         },
       },
     },
