@@ -19,6 +19,7 @@ const stagesDefaults: Stage[] = [
 export default function Pomodoro() {
   const [stages, setStages] = useState(stagesDefaults);
   const [currentStage, setCurrentStage] = useState(stages[0]);
+  const [message, setMessage] = useState("");
 
   // React states are immutable, so changing stages creates a new object.
   // Because currentStage is passed by reference to the object,
@@ -28,6 +29,14 @@ export default function Pomodoro() {
       stages.find((stage) => stage.name === currentStage.name) || stages[0],
     );
   }, [stages]);
+
+  const handleTimerFinish = () => {
+    setMessage("Time's up!");
+  };
+
+  const handleTimerReset = () => {
+    setMessage("");
+  };
 
   return (
     <div className="text-center">
@@ -41,7 +50,12 @@ export default function Pomodoro() {
           {thisStage.label}
         </button>
       ))}
-      <Timer startingTime={currentStage.duration} />
+      <div className="mt-4 min-h-[2rem] text-2xl">{message}</div>
+      <Timer
+        startingTime={currentStage.duration}
+        onFinish={handleTimerFinish}
+        onReset={handleTimerReset}
+      />
       <PomodoroSettings stages={stages} setStages={setStages} />
     </div>
   );
