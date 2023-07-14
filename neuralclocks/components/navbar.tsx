@@ -6,19 +6,24 @@ import { Fragment } from "react";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { HiBars3, HiXMark, HiUserCircle } from "react-icons/hi2";
 import clsx from "clsx";
+import Image from "next/image";
+import logoImg from "public/logo-neuralclocks.svg";
 
 // Modified from https://tailwindui.com/components/application-ui/navigation/navbars
 const Navbar = () => {
-  const navigation = [{ name: "Pomodoro", href: "/pomodoro", current: false }];
+  const navigation = [
+    { name: "Pomodoro", href: "/pomodoro", current: false },
+    { name: "Schedule", href: "#", current: false },
+  ];
   navigation.map((item) => {
     item.current = usePathname() === item.href;
   });
 
   return (
-    <Disclosure as="nav" className="bg-gray-800">
+    <Disclosure as="nav" className="bg-white">
       {({ open }) => (
         <>
-          <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
+          <div className="mx-auto max-w-7xl border-b-2 border-b-slate-100 px-2 sm:px-6 lg:px-8">
             <div className="relative flex h-16 items-center justify-between">
               <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
                 {/* Mobile menu button */}
@@ -33,11 +38,11 @@ const Navbar = () => {
               </div>
               <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
                 {/* Logo */}
-                <div className="flex flex-shrink-0 items-center">
+                <div className="flex flex-shrink-0 items-center transition-colors hover:rounded-lg hover:bg-primary-50">
                   <Link href="/">
-                    <img
-                      className="h-8 w-auto"
-                      src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
+                    <Image
+                      className="mt-1 h-8 w-auto"
+                      src={logoImg}
                       alt="Your Company"
                     />
                   </Link>
@@ -51,10 +56,12 @@ const Navbar = () => {
                           key={item.name}
                           href={item.href}
                           className={clsx(
+                            "rounded-md px-3 py-2 text-sm font-medium text-gray-900",
+                            "underline decoration-2 underline-offset-8",
+                            "transition-[text-decoration-color]",
                             item.current
-                              ? "bg-gray-900 text-white"
-                              : "text-gray-300 hover:bg-gray-700 hover:text-white",
-                            "rounded-md px-3 py-2 text-sm font-medium",
+                              ? "font-bold decoration-primary"
+                              : "decoration-transparent hover:decoration-primary",
                           )}
                           aria-current={item.current ? "page" : undefined}
                         >
@@ -70,9 +77,9 @@ const Navbar = () => {
                 <Menu as="div" className="relative ml-3">
                   {/* Profile picture */}
                   <div>
-                    <Menu.Button className="flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
+                    <Menu.Button className="flex rounded-full bg-white text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
                       <span className="sr-only">Open user menu</span>
-                      <HiUserCircle className="h-8 w-8" />
+                      <HiUserCircle className="h-8 w-8 fill-slate-600" />
                     </Menu.Button>
                   </div>
                   {/* Profile dropdown */}
@@ -121,7 +128,7 @@ const Navbar = () => {
 
           {/* Mobile items */}
           <Disclosure.Panel className="sm:hidden">
-            <div className="space-y-1 px-2 pb-3 pt-2">
+            <div className="space-y-1 bg-gray-100 px-2 pb-3 pt-2">
               {navigation.map((item) => (
                 <Disclosure.Button
                   key={item.name}
@@ -129,9 +136,9 @@ const Navbar = () => {
                   href={item.href}
                   className={clsx(
                     item.current
-                      ? "bg-gray-900 text-white"
-                      : "text-gray-300 hover:bg-gray-700 hover:text-white",
-                    "block rounded-md px-3 py-2 text-base font-medium",
+                      ? "font-bold underline decoration-primary decoration-2 underline-offset-4"
+                      : "hover:underline hover:decoration-primary hover:decoration-2 hover:underline-offset-8",
+                    "block rounded-md px-3 py-2 text-base font-medium text-gray-900",
                   )}
                   aria-current={item.current ? "page" : undefined}
                 >
