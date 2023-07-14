@@ -1,8 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { secToTime } from "../../utils/utils";
 import clsx from "clsx";
+import TimerProgress from "./progress";
 
 const Timer = ({ startingTime }: { startingTime: number }) => {
   const [time, setTime] = useState(0); // in seconds
@@ -26,7 +26,7 @@ const Timer = ({ startingTime }: { startingTime: number }) => {
 
   return (
     <div className="text-center">
-      <div className="mt-4 text-8xl">{secToTime(time)}</div>
+      <TimerProgress time={time} startingTime={startingTime} />
       <button
         className={clsx("mx-4 mt-4", { underline: isRunning })}
         onClick={() => setIsRunning(true)}
