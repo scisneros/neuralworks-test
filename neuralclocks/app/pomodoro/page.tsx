@@ -11,7 +11,7 @@ import PomodoroSettings from "./settings";
 // label: Displayed text.
 // duration: Duration of the stage in seconds.
 const stagesDefaults: Stage[] = [
-  { name: "pomodoro", label: "Pomodoro", duration: 25 * 60 },
+  { name: "pomodoro", label: "Pomodoro", duration: 2 },
   { name: "short", label: "Short Break", duration: 5 * 60 },
   { name: "long", label: "Long Break", duration: 15 * 60 },
 ];
@@ -31,7 +31,11 @@ export default function Pomodoro() {
   }, [stages]);
 
   const handleTimerFinish = () => {
-    setMessage("Time's up!");
+    if (currentStage.name === "pomodoro") {
+      setMessage("Time for a break!");
+    } else {
+      setMessage("Time to get back to work!");
+    }
   };
 
   const handleTimerReset = () => {
