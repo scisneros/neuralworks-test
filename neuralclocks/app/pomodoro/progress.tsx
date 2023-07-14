@@ -1,6 +1,12 @@
 import { secToTime } from "@/utils/utils";
 import clsx from "clsx";
 
+/**
+ * Component to handle the digital clock and progress ring
+ * showing the timer completion.
+ * @param time Current time left, in seconds.
+ * @param startingTime Starting time to count down from, in seconds.
+ */
 const TimerProgress = ({
   time,
   startingTime,
@@ -8,15 +14,18 @@ const TimerProgress = ({
   time: number;
   startingTime: number;
 }) => {
-  // Customizable
+  // Customizable.
   const stroke = 8;
-  // Non-customizable
+  // Non-customizable. Radius is calculated relative to viewBox and stroke.
+  // To control the size of the component, use its root's CSS width.
   const radius = 50 - stroke / 2;
+
   const progress = time / startingTime;
 
   return (
     <div className="relative mx-auto flex w-96 items-center justify-center">
       <svg viewBox="0 0 100 100" className="progress-ring">
+        {/* Background circle */}
         <circle
           className={clsx(
             "fill-transparent",
@@ -31,6 +40,7 @@ const TimerProgress = ({
             strokeWidth: stroke,
           }}
         />
+        {/* Progress circle */}
         <circle
           className={clsx(
             "fill-transparent",
@@ -51,6 +61,7 @@ const TimerProgress = ({
           }}
         />
       </svg>
+      {/* Digital clock */}
       <div className="absolute mb-2 text-8xl">{secToTime(time)}</div>
     </div>
   );

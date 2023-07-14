@@ -4,14 +4,29 @@ import { useEffect, useState } from "react";
 import clsx from "clsx";
 import TimerProgress from "./progress";
 
+/**
+ * Timer component. Displays a timer that counts down from a given time
+ * and buttons to start, pause and reset it.
+ * Shows a progress ring that fills up as the timer counts down.
+ * Plays a sound when the timer finishes.
+ * @param startingTime Time to count down from, in seconds.
+ * @param onStart Callback function to be called when the timer is started or resumed.
+ * @param onFinish Callback function to be called when the timer finishes.
+ * @param onPause Callback function to be called when the timer is paused.
+ * @param onReset Callback function to be called when the timer is reset.
+ */
 const Timer = ({
   startingTime,
+  onStart,
   onFinish,
+  onPause,
   onReset,
 }: {
   startingTime: number;
-  onFinish: () => void;
-  onReset: () => void;
+  onStart?: () => void;
+  onFinish?: () => void;
+  onPause?: () => void;
+  onReset?: () => void;
 }) => {
   const [time, setTime] = useState(0); // in seconds
   const [isRunning, setIsRunning] = useState(false);
@@ -36,7 +51,7 @@ const Timer = ({
     if (time === 0) {
       setIsRunning(false);
       audio?.play();
-      onFinish();
+      onFinish?.();
     }
     if (time < 0) {
       setTime(0);
@@ -47,10 +62,20 @@ const Timer = ({
     handleReset();
   }, [startingTime]);
 
+  const handleStart = () => {
+    setIsRunning(true);
+    onStart?.();
+  };
+
+  const handlePause = () => {
+    setIsRunning(false);
+    onPause?.();
+  };
+
   const handleReset = () => {
     setIsRunning(false);
     setTime(startingTime);
-    onReset();
+    onReset?.();
   };
 
   return (
@@ -58,13 +83,13 @@ const Timer = ({
       <TimerProgress time={time} startingTime={startingTime} />
       <button
         className={clsx("mx-4 mt-4", { underline: isRunning })}
-        onClick={() => setIsRunning(true)}
+        onClick={() => handleStart()}
       >
         Start
       </button>
       <button
         className={clsx("mx-4 mt-4", { underline: !isRunning })}
-        onClick={() => setIsRunning(false)}
+        onClick={() => handlePause()}
       >
         Pause
       </button>
