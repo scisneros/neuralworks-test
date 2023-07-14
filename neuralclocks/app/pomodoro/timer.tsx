@@ -15,6 +15,11 @@ const Timer = ({
 }) => {
   const [time, setTime] = useState(0); // in seconds
   const [isRunning, setIsRunning] = useState(false);
+  const [audio, setAudio] = useState<HTMLAudioElement | null>(null);
+
+  useEffect(() => {
+    setAudio(new Audio("audio/alarm-clock-short.mp3"));
+  }, []);
 
   useEffect(() => {
     if (isRunning && time > 0) {
@@ -30,6 +35,7 @@ const Timer = ({
   useEffect(() => {
     if (time === 0) {
       setIsRunning(false);
+      audio?.play();
       onFinish();
     }
     if (time < 0) {
