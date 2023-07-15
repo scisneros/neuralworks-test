@@ -11,7 +11,7 @@ const inter = Inter({
 const robotoMono = Roboto_Mono({
   subsets: ["latin"],
   variable: "--font-roboto-mono",
-  weight: ["700"],
+  weight: ["400"],
 });
 
 export const metadata: Metadata = {

@@ -54,7 +54,7 @@ export default function Pomodoro() {
         return (
           <button
             className={clsx(
-              "mx-3 mb-6 mt-8 rounded-lg border-2 border-transparent px-6 py-3 text-xl transition-colors",
+              "mx-3 mb-6 mt-8 rounded-md border-2 border-transparent px-6 py-2 text-lg transition-colors",
               thisStage.name === currentStage.name
                 ? `${thisColors.button.bg} ${thisColors.button.hover} ${thisColors.text}`
                 : thisColors.button.hoverLight,
