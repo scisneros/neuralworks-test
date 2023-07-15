@@ -6,6 +6,7 @@ import TimerProgress from "./progress";
 import { HiArrowPath, HiPause, HiPlay } from "react-icons/hi2";
 import { StageColors } from "./types";
 import { PomodoroContext } from "./context";
+import { secToTime } from "@/utils/utils";
 
 /**
  * Timer component. Displays a timer that counts down from a given time
@@ -60,6 +61,7 @@ const Timer = ({
     if (time < 0) {
       setTime(0);
     }
+    document.title = `${secToTime(time)} - ${currentStage.label}`;
   }, [time]);
 
   useEffect(() => {
@@ -84,9 +86,7 @@ const Timer = ({
 
   return (
     <div className="mt-4 text-center sm:mt-5">
-      <TimerProgress
-        colors={colors}
-      />
+      <TimerProgress colors={colors} />
       <button
         className={clsx(
           "mx-auto mt-6 block rounded-full px-6 py-2 text-3xl duration-500",
