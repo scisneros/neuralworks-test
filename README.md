@@ -15,3 +15,5 @@ Decisions:
 
 Possible improvements:
 - Store stages settings in local session, so that they are not lost on page reload.
+
+- Current stage could be stored using React Context, making it available to all child components without having to pass it down as props.
