@@ -37,16 +37,16 @@ Structure is as follows:
 Styles are defined using [Tailwind CSS](https://tailwindcss.com/), which is a utility-first CSS framework. Following its philosophy, each component is styled inline, so no extra stylesheets are needed. There's only `app/globals.css`, where imports for Tailwind and a few global styles are defined, and `tailwind.config.js`, where the Tailwind theme is customized.
 
 ## Software design decisions
-#### Framework: Next.js.
+#### Framework: Next.js
 I chose Next.js mainly because it is a framework I am familiar with, and it is very easy to set up a project with it. Also it is very easy to deploy a working demo on Vercel, which is useful for the context of this project. Initially I thought of using React, but it is [recommended by their own documentation](https://react.dev/learn/start-a-new-react-project) to use a framework for new projects, and considering that this project is supposed to be a part of a bigger app, it is a nice idea to start with a framework capable of easily scaling up and optimizing for production.
 
-#### Styles: Tailwind CSS.
+#### Styles: Tailwind CSS
 I chose Tailwind CSS because it is a very quick to use and powerful CSS framework. I'm usually not fond of utility-first CSS, but given the prototype nature of this project and limited time, I preferred it over more semantic options. It is also very easy to integrate with Next.js, as it is [officially supported](https://tailwindcss.com/docs/guides/nextjs).
 
 Class names used are not quite optimal and there is some verbosity at times, but it is a trade-off for the sake of speed and simplicity. A more robust design system could be abstracted without having to change framwork, but it was not worth it for this prototype.
 
-#### Time storing
-Timer is stored in seconds to avoid having to deal with synchronized separate counters for (hours,) minutes and seconds. It is much easier to use a single consistent number between components. Conversion to digital clock format is done only when displaying the time.
+#### State storage
+Most of the Pomodoro states (time, stage, etc) are stored using a [React Context](https://react.dev/learn/passing-data-deeply-with-context). This is because there are multiple timer-related components which are affected by these states, and it is easier to have a single source of truth for them instead of passing props and handles. This context is implemented at the lowest possible level, so that only the components that need it are re-rendered when the state changes.
 
 #### Stages
 Stages are implemented in a scalable way, as a list of objects. This way, components don't care about the number of stages or their names. Even though it is unlikely that these stages will ever change, as they are standardized by the Pomodoro Technique, this approach avoids repeating code for states, setters, change handlers and checks for each stage separately.
