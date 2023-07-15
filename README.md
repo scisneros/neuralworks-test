@@ -51,17 +51,19 @@ Most of the Pomodoro states (time, stage, etc) are stored using a [React Context
 #### Stages
 Stages are implemented in a scalable way, as a list of objects. This way, components don't care about the number of stages or their names. Even though it is unlikely that these stages will ever change, as they are standardized by the Pomodoro Technique, this approach avoids repeating code for states, setters, change handlers and checks for each stage separately.
 
-#### Home page
-A generic home page was implemented as a placeholder to convey the idea that this is part of a bigger project. Home page texts were generated using ChatGPT.
+#### Navigation
+A Navbar was implemented to navigate between pages using the Next.js router. This was done considering this is a prototype for a bigger app, and it is likely that more pages will be added in the future. A generic home page was implemented as a placeholder, with texts generated using ChatGPT.
 
-#### Visuals
-Design scheme was thought based on NeuralWorks branding. A largely dominant white with strong pink-purple accents and pitch black text could be seen on their website and social media.
+#### User interface
+Design scheme was thought based on NeuralWorks branding. A largely dominant white with strong pink-purple accents and pitch black text could be seen on their website and social media [[Website]](https://neuralworks.cl/) [[Blog]](https://plasticity.neuralworks.cl/) [[Instagram]](https://www.instagram.com/neuralworks_ai/) [[Video]](https://www.youtube.com/watch?v=s_O6l1UKq2o).
 
-As this project is an internal productivity tool, I decided to keep the dominant white big negative space through a clean, simple, minimalist design, and avoid unnecessary images, textures, texts and colors on the UI.
+As this project is an internal productivity tool, I decided to keep the dominant white big negative space through a clean, simple, minimalist design, and avoid unnecessary images, textures, texts and colors on the UI, even though textures are present on their branding.
 
-The specific shade of pink was chosen directly from the styles on their blog, [Plasticity](https://plasticity.neuralworks.cl/). A slight purple gradient was added to the logo, to subtly compensate for the minimalism and to resemble the neon-like textures and imagery on source material.
+Also considering the internal nature of this project, there's the assumption that the user is somewhat familiar with technology and the Pomodoro Technique, so there's no particular need for a tutorial or too many instructional texts, reinforcing the minimalist approach.
 
-Stages have different color schemes both for a functional quick recognition of the current stage, and to evoke the feeling of a different environment for each stage. Breaks are blue-green-ish cold colors, while the brand intense pink is used for the work stage (though color meanings are highly subjective and overinterpreted). These other colors are from the Tailwind defaults.
+The specific shade for the main pink was chosen directly from the styles on their blog, [Plasticity](https://plasticity.neuralworks.cl/). A slight purple gradient was added to the logo, to subtly compensate for the minimalism and to resemble the neon-like textures and imagery on source material.
+
+Stages have different color schemes both for a functional quick recognition of the current stage, and to evoke the feeling of a different environment for each stage. Breaks are blue-green-ish cold colors, while the brand intense pink is used for the work stage (though color meanings are highly subjective and overinterpreted, this adjusts to the western web standards). These other colors are from the Tailwind defaults.
 
 Logo was vectorized by hand from a [raster image](https://neuralworks.cl/wp-content/uploads/2021/07/logo-2-1024x176.png) found on NeuralWorks website. Logotype font was identified to be Kamerik 105 Bold using [MyFont's WhatTheFont](https://www.myfonts.com/pages/whatthefont). However, as the font is not free, I used a similar free font, [Florencesans Bold](https://www.dafont.com/es/florencesans.font), to recreate the NeuralWorks type with the "Clocks" text, then made some manual tweaks to better match the original.
 
