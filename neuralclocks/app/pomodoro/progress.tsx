@@ -71,7 +71,7 @@ const TimerProgress = ({
       {/* Digital clock */}
       <div
         className={clsx(
-          "absolute mb-2 font-mono text-7xl font-bold duration-500",
+          "absolute mb-2 font-mono text-7xl font-bold tracking-tight duration-500",
           colors.progress.time,
         )}
       >
