@@ -1,5 +1,7 @@
 import { secToTime } from "@/utils/utils";
 import clsx from "clsx";
+import { StageColors } from "./types";
+import { useEffect } from "react";
 
 /**
  * Component to handle the digital clock and progress ring
@@ -11,10 +13,12 @@ const TimerProgress = ({
   time,
   startingTime,
   isRunning,
+  colors,
 }: {
   time: number;
   startingTime: number;
   isRunning: boolean;
+  colors: StageColors;
 }) => {
   // Customizable.
   const stroke = 8;
@@ -26,7 +30,9 @@ const TimerProgress = ({
   const isStandby = !isRunning && time === startingTime;
 
   // Timer progress. Goes from 1 to 0.
-  const progress = time / startingTime;
+  const progress = Math.min(time / startingTime, 1);
+
+  useEffect(() => {}, [startingTime]);
 
   return (
     <div className="relative mx-auto mb-4 flex w-11/12 items-center justify-center sm:w-80">
@@ -34,10 +40,8 @@ const TimerProgress = ({
         {/* Background circle */}
         <circle
           className={clsx(
-            "fill-transparent",
-            "stroke-primary-100",
-            "[stroke-linecap:round]",
-            "transition-all duration-300",
+            "fill-transparent transition-[stroke] [stroke-linecap:round]",
+            colors.progress.bg,
           )}
           r={radius}
           cx={50}
@@ -49,12 +53,9 @@ const TimerProgress = ({
         {/* Progress circle */}
         <circle
           className={clsx(
-            "fill-transparent",
-            "stroke-primary",
-            "[stroke-linecap:round]",
-            "-rotate-90",
-            "origin-center",
-            "transition-all duration-300",
+            "origin-center -rotate-90 fill-transparent [stroke-linecap:round]",
+            "[transition:stroke-dashoffset_300ms,stroke_500ms]",
+            colors.progress.stroke,
           )}
           r={radius}
           cx={50}
@@ -68,7 +69,12 @@ const TimerProgress = ({
         />
       </svg>
       {/* Digital clock */}
-      <div className="absolute mb-2 font-mono text-7xl font-bold text-primary-dark">
+      <div
+        className={clsx(
+          "absolute mb-2 font-mono text-7xl font-bold duration-500",
+          colors.progress.time,
+        )}
+      >
         {secToTime(time)}
       </div>
     </div>

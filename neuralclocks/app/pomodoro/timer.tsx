@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import clsx from "clsx";
 import TimerProgress from "./progress";
 import { HiArrowPath, HiPause, HiPlay } from "react-icons/hi2";
+import { StageColors } from "./types";
 
 /**
  * Timer component. Displays a timer that counts down from a given time
@@ -11,6 +12,7 @@ import { HiArrowPath, HiPause, HiPlay } from "react-icons/hi2";
  * Shows a progress ring that fills up as the timer counts down.
  * Plays a sound when the timer finishes.
  * @param startingTime Time to count down from, in seconds.
+ * @param colors Color scheme for the timer.
  * @param onStart Callback function to be called when the timer is started or resumed.
  * @param onFinish Callback function to be called when the timer finishes.
  * @param onPause Callback function to be called when the timer is paused.
@@ -18,12 +20,14 @@ import { HiArrowPath, HiPause, HiPlay } from "react-icons/hi2";
  */
 const Timer = ({
   startingTime,
+  colors,
   onStart,
   onFinish,
   onPause,
   onReset,
 }: {
   startingTime: number;
+  colors: StageColors;
   onStart?: () => void;
   onFinish?: () => void;
   onPause?: () => void;
@@ -85,10 +89,12 @@ const Timer = ({
         time={time}
         startingTime={startingTime}
         isRunning={isRunning}
+        colors={colors}
       />
       <button
         className={clsx(
-          "mx-auto mt-6 block rounded-full bg-primary px-6 py-2 text-3xl text-white",
+          "mx-auto mt-6 block rounded-full px-6 py-2 text-3xl duration-500",
+          `${colors.button.bg} ${colors.button.hover} ${colors.text}`,
           { underline: isRunning },
         )}
         onClick={() => handlePlayPause()}
