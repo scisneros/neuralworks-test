@@ -1,5 +1,28 @@
 # neuralworks-test
 
+## Demo
+A live demo of this repo is available at [neuralworks-test.vercel.app](https://neuralworks-test.vercel.app/)
+
+## Installation
+Clone the repository and install dependencies:
+```bash
+cd neuralworks-test
+npm install
+```
+Run the development server:
+```bash
+npm run dev
+```
+Open [http://localhost:3000](http://localhost:3000) in your browser.
+
+## Description
+### Pomodoro Timer
+This project is supposed to be the beginning of a bigger app. Currently, its main and only feature is a Pomodoro timer.
+
+This is a standard [Pomodoro Technique](https://en.wikipedia.org/wiki/Pomodoro_Technique) timer, with work sessions, aka *Pomodoros*, alternating with breaks. Every 4 Pomodoros, there is a longer break. By default, work sessions are 25 minutes long, short breaks are 5 minutes long, and long breaks are 15 minutes long. These settings can be changed in the settings menu at the top.
+
+You can use the timer using the play/pause button at the bottom and move between stages with the buttons at the top.
+
 ## Software design decisions
 #### Framework: Next.js.
 I chose Next.js mainly because it is a framework I am familiar with, and it is very easy to set up a project with it. Also it is very easy to deploy a working demo on Vercel, which is useful for the context of this project. Initially I thought of using React, but it is [recommended by their own documentation](https://react.dev/learn/start-a-new-react-project) to use a framework for new projects, and considering that this project is supposed to be a part of a bigger app, it is a nice idea to start with a framework capable of easily scaling up and optimizing for production.
