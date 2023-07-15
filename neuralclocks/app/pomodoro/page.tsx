@@ -8,6 +8,7 @@ import clsx from "clsx";
 import stageColors from "./colors";
 import { PomodoroContext } from "./context";
 import { GiTomato } from "react-icons/gi";
+import StageSelector from "./stageSelector";
 
 // To modify the default stages, change the values in this array.
 // Stages can be added/removed without breaking the app, but progressions and
@@ -94,35 +95,7 @@ export default function Pomodoro() {
       >
         <PomodoroSettings />
         <div className="mt-6">
-          {stages.map((thisStage) => {
-            const thisColors =
-              stageColors[thisStage.name] || stageColors[stages[0].name];
-            return (
-              <button
-                className={clsx(
-                  "relative mx-0.5 rounded-md border-2 border-transparent px-3 py-2 text-sm transition-colors sm:mx-3 sm:px-6 sm:py-2 sm:text-lg",
-                  thisStage.name === currentStage.name
-                    ? `${thisColors.button.bg} ${thisColors.button.hover} ${thisColors.text}`
-                    : thisColors.button.hoverLight,
-                )}
-                key={thisStage.name}
-                onClick={() => setCurrentStage(thisStage)}
-              >
-                {thisStage.label}
-                {thisStage.name === getNextStage()?.name &&
-                  (isFinished || isStandby) && (
-                    <span className="absolute left-0 top-0 -z-10 h-full w-full">
-                      <span
-                        className={clsx(
-                          "inline-block h-full w-full animate-ping-button rounded-md border-2 text-sm",
-                          thisColors.button.border,
-                        )}
-                      ></span>
-                    </span>
-                  )}
-              </button>
-            );
-          })}
+          <StageSelector getNextStage={getNextStage} />
         </div>
         <Timer
           onFinish={handleTimerFinish}
