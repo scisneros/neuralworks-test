@@ -23,9 +23,26 @@ This is a standard [Pomodoro Technique](https://en.wikipedia.org/wiki/Pomodoro_T
 
 You can use the timer using the play/pause button at the bottom and move between stages with the buttons at the top.
 
+## Structure
+The project follows a standard Next.js project structure, with pages, components, styles and public folders. It uses the fairly new [App Router](https://nextjs.org/docs/app), which changes the directory structure a bit, but it is still very similar to the old Page Router. Basically, routing is done based on the directory structure, where every directory has a `page.tsx` file to be the rendered component for its corresponding route. Other files in the same directory are not rendered and can be used as modules or sub-components for the page component.
+
+Structure is as follows:
+- `app`: Contains the index route (`/`) on its `page.tsx`. It also defines the root `layout.tsx`, where the layout for navbar and page content is defined.
+  - `pomodoro`: Contains the Pomodoro timer route (`/pomodoro`) on its `page.tsx`. It also contains the `timer.tsx` component, which is the main component for the timer, and the `progress.tsx` component, which is the progress bar for the timer. Other timer-related utility components are defined here.
+- `components`: Contains the reusable or page-independent components, such as the navbar.
+- `public`: Static files, such as the logos and alarm audio files.
+- `utils`: Utility functions.
+
+Styles are defined using [Tailwind CSS](https://tailwindcss.com/), which is a utility-first CSS framework. Following its philosophy, each component is styled inline, so no extra stylesheets are needed. There's only `app/globals.css`, where imports for Tailwind and a few global styles are defined, and `tailwind.config.js`, where the Tailwind theme is customized.
+
 ## Software design decisions
 #### Framework: Next.js.
 I chose Next.js mainly because it is a framework I am familiar with, and it is very easy to set up a project with it. Also it is very easy to deploy a working demo on Vercel, which is useful for the context of this project. Initially I thought of using React, but it is [recommended by their own documentation](https://react.dev/learn/start-a-new-react-project) to use a framework for new projects, and considering that this project is supposed to be a part of a bigger app, it is a nice idea to start with a framework capable of easily scaling up and optimizing for production.
+
+#### Styles: Tailwind CSS.
+I chose Tailwind CSS because it is a very quick to use and powerful CSS framework. I'm usually not fond of utility-first CSS, but given the prototype nature of this project and limited time, I preferred it over more semantic options. It is also very easy to integrate with Next.js, as it is [officially supported](https://tailwindcss.com/docs/guides/nextjs).
+
+Class names used are not quite optimal and there is some verbosity at times, but it is a trade-off for the sake of speed and simplicity. A more robust design system could be abstracted without having to change framwork, but it was not worth it for this prototype.
 
 #### Time storing
 Timer is stored in seconds to avoid having to deal with synchronized separate counters for (hours,) minutes and seconds. It is much easier to use a single consistent number between components. Conversion to digital clock format is done only when displaying the time.
