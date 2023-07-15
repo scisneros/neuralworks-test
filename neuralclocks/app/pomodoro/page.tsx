@@ -5,9 +5,10 @@ import Timer from "./timer";
 import { Stage } from "./types";
 import PomodoroSettings from "./settings";
 import clsx from "clsx";
+import stageColors from "./colors";
 
 // To modify the default stages, change the values in this array.
-// Stages can be added/removed without requiring further modifications.
+// Stages can be added/removed. Color schemes must be modified from colors.ts.
 // name: Identifies the stage. Should be unique.
 // label: Displayed text.
 // duration: Duration of the stage in seconds.
@@ -44,28 +45,32 @@ export default function Pomodoro() {
   };
 
   return (
-    <div className="text-center">
-      <h1 className="mt-8 mb-2">Pomodoro Timer</h1>
+    <div className={"text-center"}>
+      <h1 className="mb-2 mt-8">Pomodoro Timer</h1>
       <PomodoroSettings stages={stages} setStages={setStages} />
-      {stages.map((thisStage) => (
-        <button
-          className={clsx(
-            "mx-4 mt-8 mb-4 rounded-2xl px-4 py-3 text-xl transition-colors",
-            thisStage.name === currentStage.name && [
-              "bg-primary",
-              "text-white",
-            ],
-          )}
-          key={thisStage.name}
-          onClick={() => setCurrentStage(thisStage)}
-        >
-          {thisStage.label}
-        </button>
-      ))}
+      {stages.map((thisStage) => {
+        const thisColors =
+          stageColors[thisStage.name] || stageColors[stages[0].name];
+        return (
+          <button
+            className={clsx(
+              "mx-3 mb-6 mt-8 rounded-lg border-2 border-transparent px-6 py-3 text-xl transition-colors",
+              thisStage.name === currentStage.name
+                ? `${thisColors.button.bg} ${thisColors.button.hover} ${thisColors.text}`
+                : thisColors.button.hoverLight,
+            )}
+            key={thisStage.name}
+            onClick={() => setCurrentStage(thisStage)}
+          >
+            {thisStage.label}
+          </button>
+        );
+      })}
       <Timer
         startingTime={currentStage.duration}
         onFinish={handleTimerFinish}
         onReset={handleTimerReset}
+        colors={stageColors[currentStage.name] || stageColors[stages[0].name]}
       />
       <div className="mt-4 min-h-[2rem] text-2xl">{message}</div>
     </div>
