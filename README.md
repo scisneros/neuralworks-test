@@ -1,5 +1,6 @@
 # neuralworks-test
 
+This is a work application challenge for [NeuralWorks](https://neuralworks.cl/). The challenge was to build a Pomodoro timer, which would be the first step of a bigger internal app to manage employees time when working remotely. On this context, explanations about the project and decision-making are included in this README.
 ## Demo
 A live demo of this repo is available at [neuralworks-test.vercel.app](https://neuralworks-test.vercel.app/)
 
