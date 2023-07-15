@@ -4,6 +4,11 @@ import { HiCog6Tooth } from "react-icons/hi2";
 import { Transition } from "@headlessui/react";
 import { PomodoroContext } from "./context";
 
+/**
+ * Settings menu component. Displays the settings menu and a button to show it.
+ * It works by storing a copy of the stages, and applying the changes only when
+ * the user confirms them.
+ */
 const PomodoroSettings = () => {
   const { stages, setStages } = useContext(PomodoroContext);
   const [settingsOpen, setSettingsOpen] = useState(false);
