@@ -27,6 +27,23 @@ module.exports = {
           950: "#470022",
         },
       },
+      animation: {
+        "ping-button": "ping-sm 2s cubic-bezier(0, 0, 0.2, 1) infinite",
+      },
+      keyframes: {
+        "ping-sm": {
+          "0%": {
+            opacity: 0,
+          },
+          "10%": {
+            opacity: 1,
+          },
+          "50%, 100%": {
+            transform: "scaleX(1.1) scaleY(1.275)",
+            opacity: 0,
+          }
+        }
+      },
     },
   },
   plugins: [],

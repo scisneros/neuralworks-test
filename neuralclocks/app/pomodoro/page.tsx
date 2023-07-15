@@ -1,12 +1,13 @@
 "use client";
 
-import { createContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Timer from "./timer";
 import { Stage } from "./types";
 import PomodoroSettings from "./settings";
 import clsx from "clsx";
 import stageColors from "./colors";
 import { PomodoroContext } from "./context";
+import { GiTomato } from "react-icons/gi";
 
 // To modify the default stages, change the values in this array.
 // Stages can be added/removed without breaking the app, but progressions and
@@ -23,23 +24,32 @@ const stagesDefaults: Stage[] = [
 export default function Pomodoro() {
   const [stages, setStages] = useState(stagesDefaults);
   const [currentStage, setCurrentStage] = useState(stages[0]);
-  const [time, setTime] = useState(0); // in seconds
+  const [time, setTime] = useState(stages[0].duration); // in seconds
   const [isRunning, setIsRunning] = useState(false);
   const [pomodoroCount, setPomodoroCount] = useState(0);
   const [message, setMessage] = useState("");
+  const [lastFinished, setLastFinished] = useState<Stage>();
+
+  const isStandby = time === currentStage.duration && !isRunning;
+  const isFinished = time === 0 && !isRunning;
 
   const getNextStage: () => Stage | null = () => {
-    let nextStage: Stage | null;
-    if (currentStage.name === "pomodoro") {
-      if (pomodoroCount % 4 === 0) {
-        nextStage = stages.find((stage) => stage.name === "long") || null;
+    let nextStage: Stage | undefined;
+    const tempLast = isStandby ? lastFinished : currentStage;
+    const tempCount =
+      pomodoroCount +
+      (!isStandby && !isFinished && currentStage.name === "pomodoro" ? 1 : 0);
+
+    if (tempLast?.name === "pomodoro") {
+      if (tempCount % 4 === 0) {
+        nextStage = stages.find((stage) => stage.name === "long");
       } else {
-        nextStage = stages.find((stage) => stage.name === "short") || null;
+        nextStage = stages.find((stage) => stage.name === "short");
       }
     } else {
-      nextStage = stages.find((stage) => stage.name === "pomodoro") || null;
+      nextStage = stages.find((stage) => stage.name === "pomodoro");
     }
-    return nextStage;
+    return nextStage || null;
   };
 
   // React states are immutable, so changing stages creates a new object.
@@ -58,6 +68,7 @@ export default function Pomodoro() {
     } else {
       setMessage("Time to get back to work!");
     }
+    setLastFinished(currentStage);
   };
 
   const handleTimerReset = () => {
@@ -82,35 +93,48 @@ export default function Pomodoro() {
         }}
       >
         <PomodoroSettings />
-        {stages.map((thisStage) => {
-          const thisColors =
-            stageColors[thisStage.name] || stageColors[stages[0].name];
-          return (
-            <button
-              className={clsx(
-                "mx-0.5 mt-8 rounded-md border-2 border-transparent px-3 py-2 text-sm transition-colors sm:mx-3 sm:px-6 sm:py-2 sm:text-lg",
-                thisStage.name === currentStage.name
-                  ? `${thisColors.button.bg} ${thisColors.button.hover} ${thisColors.text}`
-                  : thisColors.button.hoverLight,
-              )}
-              key={thisStage.name}
-              onClick={() => setCurrentStage(thisStage)}
-            >
-              {thisStage.label}
-            </button>
-          );
-        })}
+        <div className="mt-6">
+          {stages.map((thisStage) => {
+            const thisColors =
+              stageColors[thisStage.name] || stageColors[stages[0].name];
+            return (
+              <button
+                className={clsx(
+                  "relative mx-0.5 rounded-md border-2 border-transparent px-3 py-2 text-sm transition-colors sm:mx-3 sm:px-6 sm:py-2 sm:text-lg",
+                  thisStage.name === currentStage.name
+                    ? `${thisColors.button.bg} ${thisColors.button.hover} ${thisColors.text}`
+                    : thisColors.button.hoverLight,
+                )}
+                key={thisStage.name}
+                onClick={() => setCurrentStage(thisStage)}
+              >
+                {thisStage.label}
+                {thisStage.name === getNextStage()?.name &&
+                  (isFinished || isStandby) && (
+                    <span className="absolute left-0 top-0 -z-10 h-full w-full">
+                      <span
+                        className={clsx(
+                          "inline-block h-full w-full animate-ping-button rounded-md border-2 text-sm",
+                          thisColors.button.border,
+                        )}
+                      ></span>
+                    </span>
+                  )}
+              </button>
+            );
+          })}
+        </div>
         <Timer
           onFinish={handleTimerFinish}
           onReset={handleTimerReset}
           colors={stageColors[currentStage.name] || stageColors[stages[0].name]}
         />
       </PomodoroContext.Provider>
-      <div className="mt-4 min-h-[2rem] text-2xl">
-        Pomodoros completed: {pomodoroCount}
+      <div className="mt-4 text-sm">
+        Next: {getNextStage()?.label || "None"}
       </div>
       <div className="mt-4 min-h-[2rem] text-2xl">
-        Next stage: {getNextStage()?.label || "None"}
+        <GiTomato className="mb-1.5 inline" /> {pomodoroCount}
       </div>
       <div className="mt-4 min-h-[2rem] text-2xl">{message}</div>
     </div>

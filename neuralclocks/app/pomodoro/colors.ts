@@ -8,6 +8,7 @@ const stageColors: StagesColors = {
       bg: "bg-primary-500",
       hover: "hover:bg-primary-600",
       hoverLight: "hover:bg-primary-100 hover:text-primary-700",
+      border: "border-primary-500",
     },
     progress: {
       bg: "stroke-primary-100",
@@ -22,6 +23,7 @@ const stageColors: StagesColors = {
       bg: "bg-sky-500",
       hover: "hover:bg-sky-600",
       hoverLight: "hover:bg-sky-100 hover:text-sky-700",
+      border: "border-sky-500",
     },
     progress: {
       bg: "stroke-sky-200",
@@ -36,6 +38,7 @@ const stageColors: StagesColors = {
       bg: "bg-teal-500",
       hover: "hover:bg-teal-600",
       hoverLight: "hover:bg-teal-100 hover:text-teal-700",
+      border: "border-teal-500",
     },
     progress: {
       bg: "stroke-teal-200",

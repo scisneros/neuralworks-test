@@ -67,10 +67,10 @@ const Timer = ({
   }, [startingTime]);
 
   const handlePlayPause = () => {
-    if (!isRunning) {
+    if (!isRunning && time > 0) {
       setIsRunning(true);
       onStart?.();
-    } else {
+    } else if (isRunning) {
       setIsRunning(false);
       onPause?.();
     }
@@ -83,7 +83,7 @@ const Timer = ({
   };
 
   return (
-    <div className="mt-4 text-center sm:mt-6">
+    <div className="mt-4 text-center sm:mt-5">
       <TimerProgress
         colors={colors}
       />

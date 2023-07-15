@@ -13,6 +13,7 @@ export type StageColors = {
     bg: string;
     hover: string;
     hoverLight: string;
+    border: string;
   };
   progress: {
     bg: string;
