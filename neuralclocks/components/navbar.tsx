@@ -15,8 +15,9 @@ const Navbar = () => {
     { name: "Pomodoro", href: "/pomodoro", current: false },
     { name: "Schedule", href: "#", current: false },
   ];
+  const pathname = usePathname();
   navigation.map((item) => {
-    item.current = usePathname() === item.href;
+    item.current = pathname === item.href;
   });
 
   return (
