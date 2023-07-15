@@ -20,10 +20,10 @@ const Navbar = () => {
   });
 
   return (
-    <Disclosure as="nav" className="bg-white">
+    <Disclosure as="nav" className="relative z-10 bg-white">
       {({ open }) => (
         <>
-          <div className="mx-auto max-w-7xl border-b-2 border-b-slate-100 px-2 sm:px-6 lg:px-8">
+          <div className="mx-auto h-16 max-w-7xl border-b-2 border-b-slate-100 px-2 sm:px-6 lg:px-8">
             <div className="relative flex h-16 items-center justify-between">
               <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
                 {/* Mobile menu button */}
@@ -41,7 +41,7 @@ const Navbar = () => {
                 <div className="flex flex-shrink-0 items-center transition-colors hover:rounded-lg hover:bg-primary-50">
                   <Link href="/">
                     <Image
-                      className="mt-1 h-8 w-auto"
+                      className="mt-1 h-7 w-auto"
                       src={logoImg}
                       alt="Your Company"
                     />
