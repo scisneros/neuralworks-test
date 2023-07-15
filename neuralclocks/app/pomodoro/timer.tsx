@@ -84,7 +84,7 @@ const Timer = ({
   };
 
   return (
-    <div className="text-center">
+    <div className="mt-4 text-center sm:mt-6">
       <TimerProgress
         time={time}
         startingTime={startingTime}

@@ -21,7 +21,7 @@ const TimerProgress = ({
   colors: StageColors;
 }) => {
   // Customizable.
-  const stroke = 8;
+  const stroke = 10;
   // Non-customizable. Radius is calculated relative to viewBox and stroke.
   // To control the size of the component, use its root's CSS width.
   const radius = 50 - stroke / 2;
@@ -35,7 +35,7 @@ const TimerProgress = ({
   useEffect(() => {}, [startingTime]);
 
   return (
-    <div className="relative mx-auto mb-4 flex w-11/12 items-center justify-center sm:w-80">
+    <div className="relative mx-auto mb-4 flex w-10/12 items-center justify-center sm:w-80">
       <svg viewBox="0 0 100 100" className="progress-ring">
         {/* Background circle */}
         <circle
@@ -70,10 +70,9 @@ const TimerProgress = ({
       </svg>
       {/* Digital clock */}
       <div
-        className={clsx(
-          "absolute mb-2 font-mono text-7xl tracking-tighter duration-500",
-          colors.progress.time,
-        )}
+        className={
+          "absolute mb-2 font-mono text-7xl tracking-tighter duration-500"
+        }
       >
         {secToTime(time)}
       </div>

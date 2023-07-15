@@ -51,26 +51,26 @@ const PomodoroSettings = ({
         enterTo="opacity-100 scale-100"
         leaveFrom="opacity-100 scale-100"
         leaveTo="opacity-0 scale-75"
-        className="transition-[opacity, transform] duration-100 origin-top"
+        className="transition-[opacity, transform] origin-top duration-100"
       >
-        <div className="mt-4 flex justify-center">
+        <div className="mt-4 flex flex-wrap justify-center">
           {stagesSettings.map((thisStage) => (
-            <div className="mx-4" key={thisStage.name}>
+            <div className="mx-1 w-10/12 sm:mx-4 sm:w-24" key={thisStage.name}>
               <div>{thisStage.label}</div>
               <input
                 type="number"
-                className="w-20 rounded-md border border-gray-300 px-3 py-1 focus:border-primary focus:ring-primary"
+                className="mb-2 w-24 rounded-md border border-gray-300 px-3 py-1 text-right focus:border-primary focus:ring-primary sm:mb-0 sm:w-full"
                 // Uses defaultValue and onBlur instead of value and onChange
                 // to prevent input changes while the user is typing.
                 defaultValue={Number((thisStage.duration / 60).toFixed(2))} // Convert to minutes
                 onBlur={(e) => handleTimeChange(thisStage.name, e.target.value)}
               />
-              <div>mins</div>
+              <div className="ml-2 inline sm:m-0 sm:block">mins</div>
             </div>
           ))}
         </div>
         <button
-          className="mt-4 mx-auto block rounded-full text-white bg-emerald-500 px-4 py-1 align-middle transition-colors hover:bg-emerald-600"
+          className="mx-auto mt-2 sm:mt-2 block rounded-full bg-emerald-500 px-4 py-1 align-middle text-white transition-colors hover:bg-emerald-600"
           onClick={() => {
             confirmSettings();
           }}

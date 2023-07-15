@@ -18,7 +18,6 @@ export type StageColors = {
     bg: string;
     stroke: string;
     fill: string;
-    time: string;
   };
   text: string;
 }

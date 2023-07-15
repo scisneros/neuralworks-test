@@ -26,7 +26,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={`${inter.variable} ${robotoMono.variable}`}>
-      <body className="mx-auto min-h-screen max-w-4xl text-slate-800">
+      <body className="mx-auto min-h-screen max-w-4xl text-black">
         <Navbar />
         {children}
       </body>
