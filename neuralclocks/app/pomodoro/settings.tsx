@@ -1,15 +1,11 @@
-import { useState } from "react";
+import { useState, useEffect, useContext } from "react";
 import { Stage } from "./types";
 import { HiCog6Tooth } from "react-icons/hi2";
 import { Transition } from "@headlessui/react";
+import { PomodoroContext } from "./context";
 
-const PomodoroSettings = ({
-  stages,
-  setStages,
-}: {
-  stages: Stage[];
-  setStages: (stages: Stage[]) => void;
-}) => {
+const PomodoroSettings = () => {
+  const { stages, setStages } = useContext(PomodoroContext);
   const [settingsOpen, setSettingsOpen] = useState(false);
   // A copy of stages, which is applied when changes are confirmed.
   const [stagesSettings, setStagesSettings] = useState(stages);
@@ -35,6 +31,10 @@ const PomodoroSettings = ({
       }),
     );
   };
+
+  useEffect(() => {
+    setStagesSettings(stages);
+  }, [stages]);
 
   return (
     <div>
@@ -70,7 +70,7 @@ const PomodoroSettings = ({
           ))}
         </div>
         <button
-          className="mx-auto mt-2 sm:mt-2 block rounded-full bg-emerald-500 px-4 py-1 align-middle text-white transition-colors hover:bg-emerald-600"
+          className="mx-auto mt-2 block rounded-full bg-emerald-500 px-4 py-1 align-middle text-white transition-colors hover:bg-emerald-600 sm:mt-2"
           onClick={() => {
             confirmSettings();
           }}
