@@ -34,20 +34,26 @@ export default function Pomodoro() {
   const isStandby = time === currentStage.duration && !isRunning;
   const isFinished = time === 0 && !isRunning;
 
+  // Returns the next stage in the progression.
   const getNextStage: () => Stage | null = () => {
     let nextStage: Stage | undefined;
+    // 'temp' variables are used to consider wether the current stage is ongoing or standby.
+    // If timer is running, it temporarily considers the current stage as the last finished.
     const tempLast = isStandby ? lastFinished : currentStage;
+    // If a Pomodoro stage timer is running, it temporarily considers an extra Pomodoro.
     const tempCount =
       pomodoroCount +
       (!isStandby && !isFinished && currentStage.name === "pomodoro" ? 1 : 0);
 
     if (tempLast?.name === "pomodoro") {
+      // If last stage was a Pomodoro, the next stage is a break, depending on the count.
       if (tempCount % 4 === 0) {
         nextStage = stages.find((stage) => stage.name === "long");
       } else {
         nextStage = stages.find((stage) => stage.name === "short");
       }
     } else {
+      // If last stage was a break, the next stage is a Pomodoro.
       nextStage = stages.find((stage) => stage.name === "pomodoro");
     }
     return nextStage || null;
