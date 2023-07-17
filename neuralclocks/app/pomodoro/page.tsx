@@ -17,7 +17,7 @@ import StageSelector from "./stageSelector";
 // label: Displayed text.
 // duration: Duration of the stage in seconds.
 const stagesDefaults: Stage[] = [
-  { name: "pomodoro", label: "Pomodoro", duration: 2 },
+  { name: "pomodoro", label: "Pomodoro", duration: 25 * 60 },
   { name: "short", label: "Short Break", duration: 5 * 60 },
   { name: "long", label: "Long Break", duration: 15 * 60 },
 ];
