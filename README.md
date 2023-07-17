@@ -91,3 +91,5 @@ I based mainly on the [Pomofocus](https://pomofocus.io/) web app, which is a ver
 - **Gamification**. Maybe a score system, or something more like caretaking-oriented. For example, what [Forest](https://www.forestapp.cc/) does, where you grow a tree for each session, and if you leave the app before the session ends, the tree dies. This could be a nice way to emotionally motivate the user. Considering this is planned to be an online collaboration app, this pseudo-competitive approach may encourage using it.
 
 - **Reports**. Some statistics on how much time you spend on each stage, how many sessions you complete, etc. [Pomofocus](https://pomofocus.io/) does this, and it's a nice way to keep track of your productivity.
+
+- **Current task**. Pomodoro technique recommends setting a specific task for each session. It would be nice to have a field to set the current task, and maybe a list of previous tasks to choose from.
